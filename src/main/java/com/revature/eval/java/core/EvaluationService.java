@@ -1,5 +1,8 @@
 package com.revature.eval.java.core;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -161,12 +164,12 @@ public class EvaluationService {
 		//but if any match it cant be Scalene
 		if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree ||this.sideTwo == this.sideThree)
 	        {
-	        	System.out.println("This is NOT Isosceles");
+	        	System.out.println("This is NOT Scalene");
 	        	return false;
 	        }
 	    else
 	        {
-		        System.out.println("This is an Isosceles");
+		        System.out.println("This is an Scalene");
 		        return true;
 		    }
 		}
@@ -216,7 +219,7 @@ public class EvaluationService {
 	      {
 	         for (int j=0; j < 26; j++)
 	            {
-	            if (string.charAt(i) == alphabet[j]) //cant be .equals
+	            if (string.charAt(i) == alphabet[j]) 
 	               {
 	                  score = score + scoring[j];
 	               }
@@ -313,24 +316,41 @@ public class EvaluationService {
 	 * @return
 	 */
 	
-	 //this doesnt work
-	  public Map<String, Integer> wordCount(String string) {
+	public Map<String, Integer> wordCount(String string) 
+	{
 		
-		string = string.replaceAll(",", " ");
-		string = string.replaceAll("\\n", "");
-		String[] words = string.split(" ");
-		Map<String, Integer> wordsMap = new HashMap<String, Integer>();
-		for(String x: words) {
-			//boolean count = wordsMap.containsKey(x);
-			if( wordsMap.get(x) != null) 
+		 Map< String, Integer> value =  new HashMap< String, Integer>(); 
+		    
+			String[] arr;
+			arr = string.split(",\\s+");
+			
+			if(arr.length == 1) 
 			{
-				//return 0;
+			arr = string.split(",");
 			}
 			
-			//wordsMap.put(x, ++1);
-		}
+			if(arr.length == 1) 
+			{
+				arr = string.split("\\s+");
+			}
+			
+			
+			for (int i = 0; i < arr.length; i++) 
+			{
+				if (value.containsKey(arr[i])) 
+				{
+					value.put(arr[i], value.get(arr[i]) + 1);
+				}
+				else 
+				{
+					value.put(arr[i], 1);
+				}
+				
+			
+			}
+			System.out.println(value);
+			return value;
 		
-		return wordsMap;
 	}
 	
 	
@@ -428,31 +448,34 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String toPigLatin(String string) 
-	{
-		Map<Character, String> pigLatinMap = new HashMap<>();
+	public String toPigLatin(String string) {
+		String[] arr;
+		arr = string.split("\\s+");
 		
-		String sound = "AEIOUQWRTPSDFGHJKLMNBVCXZ";
-
-		for (int i = 0; i < sound.length(); i++) 
-		{
-			if (sound.charAt(i) == 'A' ||
-					sound.charAt(i) == 'E' ||
-					sound.charAt(i) == 'I' ||
-					sound.charAt(i) == 'O' ||
-					sound.charAt(i) == 'U' ||
-					sound.charAt(i) == 'Y') 
-			{
-				pigLatinMap.put(sound.charAt(i), "ay");
+	
+		for (int i = 0; i < arr.length; i++) {
+			
+			String s = String.valueOf(arr[i].charAt(0));
+			
+			if(s.matches("a|e|i|o|u")) {
+				
+				arr[i] = arr[i]+"ay";
+				
+				System.out.println(arr[i]);
 			}
-
-			else
-			{
-				pigLatinMap.put(sound.charAt(i), sound.charAt(i) + "ay");
+			else {
+				arr[i] = arr[i].substring(1);
+				
+				arr[i] = arr[i] + s + "ay";
 			}
 		}
 		
-		return null;
+		
+		
+		String result = String.join(" ", arr);
+		
+		return result;
+		
 	}
 
 	
@@ -575,16 +598,49 @@ public class EvaluationService {
 	 * gur ynml qbt. ROT13 Gur dhvpx oebja sbk whzcf bire gur ynml qbt. gives The
 	 * quick brown fox jumps over the lazy dog.
 	 */
-	static class RotationalCipher {
-		public RotationalCipher(int key) {
+	static class RotationalCipher 
+	{
+		private int key;
+		public RotationalCipher(int key) 
+		{
 			super();
+			this.key = key;
 		}
 
-		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+		public String rotate(String string) 
+		{
+		byte[] b = string.getBytes();
+		for (int i = 0; i < string.length(); i++) 
+		{
+			
+			if ((b[i] > 64 ) && (b[i] < 91)) 
+			{
+				b[i] = (byte) (b[i] - 64 + key);
+		
+				if (b[i] > 26) 
+				{
+					b[i] = (byte) (b[i] - 26);
+				}
+				
+				b[i] = (byte) (b[i] + 64);
+			}
+			
+			if((b[i]>96) && (b[i]<123)) 
+			{
+				b[i] = (byte) (b[i] - 96 + key);
+				
+				if (b[i] > 26) 
+				{
+					b[i] = (byte) (b[i] - 26);
+				}
+				
+				b[i] = (byte) (b[i] + 96);
+			}
+			}
+			
+			String str = new String(b);
+			return str;
 		}
-
 	}
 
 	
@@ -606,9 +662,33 @@ public class EvaluationService {
 	 * @param i
 	 * @return
 	 */
-	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	public int calculateNthPrime(int i) 
+	{
+		if (i == 0) 
+		{
+			throw new IllegalArgumentException();	
+		}
+		
+		int a = 1;
+		int count = 0;
+		
+		while(count < i) 
+		{
+			a++;
+			for (int b = 2; b <= a; b++) 
+			{
+				if (a == b) 
+				{
+					count++;
+				}
+				if(a % b == 0) 
+				{
+					break;
+				}
+			}
+		}
+		
+		return a;
 	}
 
 	
@@ -700,25 +780,26 @@ public class EvaluationService {
 	{		
 		String s = "";
 		 
-	     s = string.replaceAll("[^A-Za-z0-9]", "");
+	     s = string.replaceAll("[^A-Z, a-z, 0-9]", s);
 	      
-	     int[] numbers= new int[s.length()];
-	     char[] numString= new char[s.length()];
-	     int sum=0;
+	     int[] numbers = new int[s.length()];
+	     char[] numString = new char[s.length()];
+	     int sum = 0;
 	      
 	     //System.out.println(s);
 	      
 	     for(int i=0, j=10; i<10; i++, j--)
 	        {
-	           numString[i]=s.charAt(i);
-	           numbers[i]= Character.getNumericValue(numString[i]);
+	           numString[i] = s.charAt(i);
+	           numbers[i] = Character.getNumericValue(numString[i]);
 	           sum += numbers[i]*j;
 	        }
 	      
-	        if(sum%11==0)
+	        if(sum % 11 == 0)
 	        {
 	        	return true;
 	        }
+	        
 	        else
 	        {
 	        	return false;
@@ -791,9 +872,20 @@ public class EvaluationService {
 	 * @param given
 	 * @return
 	 */
-	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public Temporal getGigasecondDate(Temporal given) 
+	{
+		LocalDateTime localDateTimeGiven = null;
+		long gigaSecond = 1000000000;
+		try 
+		{
+			 localDateTimeGiven = LocalDateTime.from(given);
+		}
+		catch(Exception e) 
+		{
+			localDateTimeGiven = ((LocalDate)given).atStartOfDay();
+		}
+		
+		return  localDateTimeGiven.plus(gigaSecond, ChronoUnit.SECONDS);
 	}
 
 	
@@ -816,9 +908,20 @@ public class EvaluationService {
 	 * @param set
 	 * @return
 	 */
-	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	public int getSumOfMultiples(int i, int[] set) 
+	{
+		int x = 0;
+		for (int j = 1; j < i; j++) 
+		{
+			for (int k = 0; k<set.length; k++) 
+			{
+				if(j % set[k] == 0) {
+					x = x + j;
+					break;
+				}
+			}
+		}
+		return x;
 	}
 
 	
