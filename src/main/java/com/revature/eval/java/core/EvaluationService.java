@@ -1,6 +1,9 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +24,14 @@ public class EvaluationService {
 		return new String(reversed);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 2. Convert a phrase to its acronym. Techies love their TLA (Three Letter
 	 * Acronyms)! Help generate some jargon by writing a program that converts a
@@ -29,11 +40,35 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
-	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	
+	public String acronym(String phrase) 
+	{ 
+	// TODO Write an implementation for this method declaration
+		char[] acronymWord = new char[phrase.length()];
+		
+	    String anAcronym = phrase.charAt(0)+"";
+	    
+	    for (int i = 0; i < acronymWord.length; i++)
+	    {
+	
+	    	if(phrase.charAt(i) == ' ')
+	    	{
+	    	 anAcronym += Character.toUpperCase(phrase.charAt(i+1));
+	    	}
+	
+	    }
+	    
+	  return anAcronym;
+
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 3. Determine if a triangle is equilateral, isosceles, or scalene. An
 	 * equilateral triangle has all three sides the same length. An isosceles
@@ -43,16 +78,19 @@ public class EvaluationService {
 	 * different lengths.
 	 *
 	 */
-	static class Triangle {
+	static class Triangle 
+	{
 		private double sideOne;
 		private double sideTwo;
 		private double sideThree;
 
-		public Triangle() {
+		public Triangle() 
+		{
 			super();
 		}
 
-		public Triangle(double sideOne, double sideTwo, double sideThree) {
+		public Triangle(double sideOne, double sideTwo, double sideThree) 
+		{
 			this();
 			this.sideOne = sideOne;
 			this.sideTwo = sideTwo;
@@ -83,43 +121,120 @@ public class EvaluationService {
 			this.sideThree = sideThree;
 		}
 
-		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		
+		public boolean isEquilateral() 
+		{
+		//a triangle in which all three sides are equal
+		//compare side one with two and three
+		if (this.sideOne == this.sideTwo && this.sideTwo == this.sideThree) 
+	    	{
+				System.out.println("This is Equilateral");
+				return true;
+	        }
+	    else
+	        {
+	        	System.out.println("This is NOT Equilateral");
+	        	return false;
+	        }
 		}
 
-		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		public boolean isIsosceles() 
+		{
+		// a triangle that has two sides of equal length
+		//compare all three sides to each other
+		if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree ||this.sideTwo == this.sideThree)
+	        {
+	        	System.out.println("This is Isosceles");
+	        	return true;
+	        }
+	    else
+	        {
+	        	System.out.println("This is NOT Isosceles");
+	        	return false;
+	        }
 		}
 
-		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		public boolean isScalene() 
+		{
+		// a triangle that has three unequal sides
+		//compare all three sides to each other again 
+		//but if any match it cant be Scalene
+		if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree ||this.sideTwo == this.sideThree)
+	        {
+	        	System.out.println("This is NOT Isosceles");
+	        	return false;
+	        }
+	    else
+	        {
+		        System.out.println("This is an Isosceles");
+		        return true;
+		    }
 		}
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 4. Given a word, compute the scrabble score for that word.
 	 * 
-	 * --Letter Values-- Letter Value A, E, I, O, U, L, N, R, S, T = 1; D, G = 2; B,
-	 * C, M, P = 3; F, H, V, W, Y = 4; K = 5; J, X = 8; Q, Z = 10; Examples
-	 * "cabbage" should be scored as worth 14 points:
+	 * --Letter Values-- 
+	 * A, E, I, O, U, L, N, R, S, T = 1; 
+	 * D, G = 2; 
+	 * B, C, M, P = 3; 
+	 * F, H, V, W, Y = 4; 
+	 * K = 5; 
+	 * J, X = 8; 
+	 * Q, Z = 10; 
 	 * 
+	 * Example
+	 * "cabbage" should be scored as worth 14 points:
+	 ***** 3+1+3+3+1+2+1=14 ******
 	 * 3 points for C, 1 point for A, twice 3 points for B, twice 2 points for G, 1
 	 * point for E And to total:
 	 * 
-	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
+	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14 ***is this common core? lol
 	 * 
 	 * @param string
 	 * @return
 	 */
-	public int getScrabbleScore(String string) {
+	
+	public int getScrabbleScore(String string) 
+	{
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int score=0;
+		
+	    char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+	    int[] scoring  =  { 1 , 3 , 3 , 2 , 1 , 4 , 2 , 4 , 1 , 8 , 5 , 1 , 3 , 1 , 1 , 3 , 10, 1 , 1 , 1 , 1 , 4 , 4 , 8 , 4 , 10};
+
+	      for (int i = 0; i < string.length(); i++)
+	      {
+	         for (int j=0; j < 26; j++)
+	            {
+	            if (string.charAt(i) == alphabet[j]) //cant be .equals
+	               {
+	                  score = score + scoring[j];
+	               }
+	            }
+	      }
+	      System.out.println(score);
+	      
+	      return score;
+	     
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 5. Clean up user-entered phone numbers so that they can be sent SMS messages.
 	 * 
@@ -151,11 +266,43 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public String cleanPhoneNumber(String string) 
+	{
+		String cleanPhoneNumber = new String();
+		int cleanPhoneNubmerMaxLength = 11;
+        int stringlength = string.length();
+        
+        for (int i = 0; i < stringlength; i++)
+        {
+        	//grab the first character of the cleanPhoneNumber
+			if (Character.isDigit(string.charAt(i)))
+			{
+				cleanPhoneNumber += Character.getNumericValue(string.charAt(i));		
+        	}
+			
+        	else if (string.charAt(i) == '-' || string.charAt(i) == ' ')
+        	{
+				if((i+1) < stringlength && Character.isLetter (string.charAt (i+1) ))
+				{
+					throw new IllegalArgumentException ("Invalid number");
+				}
+			}
+
+		}
+        
+		if (cleanPhoneNumber.length() >= cleanPhoneNubmerMaxLength)
+			throw new IllegalArgumentException("Argument exceeds max length of digits");
+
+		return cleanPhoneNumber;
+
 	}
 
+	
+	
+	
+	
+	
+	
 	/**
 	 * 6. Given a phrase, count the occurrences of each word in that phrase.
 	 * 
@@ -165,12 +312,38 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	
+	 //this doesnt work
+	  public Map<String, Integer> wordCount(String string) {
+		
+		string = string.replaceAll(",", " ");
+		string = string.replaceAll("\\n", "");
+		String[] words = string.split(" ");
+		Map<String, Integer> wordsMap = new HashMap<String, Integer>();
+		for(String x: words) {
+			//boolean count = wordsMap.containsKey(x);
+			if( wordsMap.get(x) != null) 
+			{
+				//return 0;
+			}
+			
+			//wordsMap.put(x, ++1);
+		}
+		
+		return wordsMap;
 	}
+	
+	
 
-	/**
+	
+	
+	
+	
+	
+	
+	
+	
+	 /**
 	 * 7. Implement a binary search algorithm.
 	 * 
 	 * Searching a sorted collection is a common task. A dictionary is a sorted list
@@ -205,29 +378,39 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
-	static class BinarySearch<T> {
+	static class BinarySearch<T> 
+	{
 		private List<T> sortedList;
 
-		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+		public int indexOf(T t) 
+		{
+			return Arrays.binarySearch(sortedList.toArray(), t);	
 		}
 
-		public BinarySearch(List<T> sortedList) {
+		public BinarySearch(List<T> sortedList) 
+		{
 			super();
 			this.sortedList = sortedList;
 		}
 
-		public List<T> getSortedList() {
+		public List<T> getSortedList() 
+		{
 			return sortedList;
 		}
 
-		public void setSortedList(List<T> sortedList) {
+		public void setSortedList(List<T> sortedList) 
+		{
 			this.sortedList = sortedList;
 		}
 
 	}
 
+	
+	
+	
+	
+	
+	
 	/**
 	 * 8. Implement a program that translates from English to Pig Latin.
 	 * 
@@ -245,11 +428,40 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
+	public String toPigLatin(String string) 
+	{
+		Map<Character, String> pigLatinMap = new HashMap<>();
+		
+		String sound = "AEIOUQWRTPSDFGHJKLMNBVCXZ";
+
+		for (int i = 0; i < sound.length(); i++) 
+		{
+			if (sound.charAt(i) == 'A' ||
+					sound.charAt(i) == 'E' ||
+					sound.charAt(i) == 'I' ||
+					sound.charAt(i) == 'O' ||
+					sound.charAt(i) == 'U' ||
+					sound.charAt(i) == 'Y') 
+			{
+				pigLatinMap.put(sound.charAt(i), "ay");
+			}
+
+			else
+			{
+				pigLatinMap.put(sound.charAt(i), sound.charAt(i) + "ay");
+			}
+		}
+		
 		return null;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 9. An Armstrong number is a number that is the sum of its own digits each
 	 * raised to the power of the number of digits.
@@ -266,10 +478,42 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
+		
+		int sum = 0;
+		int number = input;
+		int digits = String.valueOf(number).length();
+	
+		if ( input < 10) 
+		{
+			return true;
+		} 
+		
+		else 
+		{
+			number = input;
+			while (number > 0)
+			{
+				sum += Math.pow (number%10, digits);
+			    number /= 10;
+			}
+		}
+		
+		
+		if ( sum == input) 
+		{
+			return true;
+		}
+		else
 		return false;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 10. Compute the prime factors of a given natural number.
 	 * 
@@ -280,11 +524,31 @@ public class EvaluationService {
 	 * @param l
 	 * @return
 	 */
-	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public List<Long> calculatePrimeFactorsOf (long lng) 
+	{
+		List<Long> primeFactor = new LinkedList<>();
+		
+		long factor = 2;
+		
+		while(lng > 1)
+		{
+			while (lng % factor == 0)
+			{
+				primeFactor.add(factor);
+				lng = lng/factor;
+			}
+			factor++;
+		}
+		return primeFactor;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 11. Create an implementation of the rotational cipher, also sometimes called
 	 * the Caesar cipher.
@@ -312,11 +576,8 @@ public class EvaluationService {
 	 * quick brown fox jumps over the lazy dog.
 	 */
 	static class RotationalCipher {
-		private int key;
-
 		public RotationalCipher(int key) {
 			super();
-			this.key = key;
 		}
 
 		public String rotate(String string) {
@@ -326,6 +587,13 @@ public class EvaluationService {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 12. Given a number n, determine what the nth prime is.
 	 * 
@@ -343,6 +611,13 @@ public class EvaluationService {
 		return 0;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 13 & 14. Create an implementation of the atbash cipher, an ancient encryption
 	 * system created in the Middle East.
@@ -392,6 +667,13 @@ public class EvaluationService {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 15. The ISBN-10 verification process is used to validate book identification
 	 * numbers. These normally contain dashes and look like: 3-598-21508-8
@@ -414,11 +696,42 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+	public boolean isValidIsbn(String string) 
+	{		
+		String s = "";
+		 
+	     s = string.replaceAll("[^A-Za-z0-9]", "");
+	      
+	     int[] numbers= new int[s.length()];
+	     char[] numString= new char[s.length()];
+	     int sum=0;
+	      
+	     //System.out.println(s);
+	      
+	     for(int i=0, j=10; i<10; i++, j--)
+	        {
+	           numString[i]=s.charAt(i);
+	           numbers[i]= Character.getNumericValue(numString[i]);
+	           sum += numbers[i]*j;
+	        }
+	      
+	        if(sum%11==0)
+	        {
+	        	return true;
+	        }
+	        else
+	        {
+	        	return false;
+	        }
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 16. Determine if a sentence is a pangram. A pangram (Greek: παν γράμμα, pan
 	 * gramma, "every letter") is a sentence using every letter of the alphabet at
@@ -432,11 +745,44 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+	public boolean isPangram(String string) 
+	{
+		string = string.toLowerCase();
+		/*
+		 * keep track if used a letter, and make a note when you used it
+		 * between a - z , or 97-122
+		 */
+		boolean[] tag = new boolean[26];
+	    int index = 0;
+	
+	    for (int i = 0; i < string.length(); i++)
+	    {  
+	    	if('a' <= string.charAt(i) && string.charAt(i) <= 'z')
+	    	{
+	    		index = string.charAt(i) - 'a';
+	            tag[index] = true;
+	    	}
+	    }
+	    
+	    for (int i = 0; i < 26; i++) 
+	    {
+	    	if (tag[i] == false) 
+	    	{
+	    		return false;
+	    	}
+	    		
+	    }
+	    
+	    return true;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 17. Calculate the moment when someone has lived for 10^9 seconds.
 	 * 
@@ -450,6 +796,13 @@ public class EvaluationService {
 		return null;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 18. Given a number, find the sum of all the unique multiples of particular
 	 * numbers up to but not including that number.
@@ -468,6 +821,13 @@ public class EvaluationService {
 		return 0;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 19. Given a number determine whether or not it is valid per the Luhn formula.
 	 * 
@@ -509,6 +869,14 @@ public class EvaluationService {
 		return false;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 20. Parse and evaluate simple math word problems returning the answer as an
 	 * integer.
@@ -540,5 +908,8 @@ public class EvaluationService {
 		// TODO Write an implementation for this method declaration
 		return 0;
 	}
+
+
+
 
 }
